@@ -8,6 +8,7 @@
     <dimen name="generic_half_padding">8dp</dimen>
 
     <!-- Button -->
-    <dimen name="button_corner_radius">10</dimen>
+    <dimen name="button_corner_radius">10dp</dimen>
     <dimen name="button_shadow_height">2dp</dimen>
+
 </resources>
