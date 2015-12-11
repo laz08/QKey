@@ -1,4 +1,13 @@
 <resources>
+
+    <!-- Strings sizes -->
+    <dimen name="generic_text_size">15sp</dimen>
+
+    <!-- Margins and paddings -->
     <dimen name="generic_padding">16dp</dimen>
     <dimen name="generic_half_padding">8dp</dimen>
+
+    <!-- Button -->
+    <dimen name="button_corner_radius">10</dimen>
+    <dimen name="button_shadow_height">2dp</dimen>
 </resources>

@@ -1,4 +1,10 @@
 <resources>
+
+    <!-- App -->
     <string name="app_name">QKeyCounter</string>
+
+    <!-- Main activity -->
     <string name="num_of_qkeys">QKeys collected:</string>
+    <string name="add_qKey">Add QKey!</string>
+
 </resources>

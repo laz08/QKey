@@ -7,7 +7,7 @@
     </style>
 
     <style name="GenericTextStyle">
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">@dimen/generic_text_size</item>
     </style>
 
     <style name="GenericTitleStyle" parent="GenericTextStyle">
