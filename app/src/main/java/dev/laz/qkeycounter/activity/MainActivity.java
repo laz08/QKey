@@ -70,14 +70,8 @@ public class MainActivity extends AppCompatActivity {
     private void addQKey() {
 
         mQKeysNumber++;
-        refreshNumberOfQKeysShown();
-    }
-
-    @Override
-    protected void onStop() {
-
-        super.onStop();
         storeNumberOfQKeys();
+        refreshNumberOfQKeysShown();
     }
 
     /**
