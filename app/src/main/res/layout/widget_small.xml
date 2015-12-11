@@ -2,15 +2,18 @@
 <RelativeLayout
     android:id="@+id/widget_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/widget_padding"
-    android:background="@drawable/bg_widget">
+    android:background="@drawable/bg_widget"
+    android:padding="@dimen/widget_padding">
 
     <TextView
         android:id="@+id/number_label"
         style="@style/WidgetTextStyle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        tools:text="Prova"/>
 
 </RelativeLayout>

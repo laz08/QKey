@@ -9,14 +9,13 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import dev.laz.qkeycounter.R;
+import dev.laz.qkeycounter.Values;
 import info.hoang8f.widget.FButton;
 
 /**
  * Main Activity.
  */
 public class MainActivity extends AppCompatActivity {
-
-    public static final String NUMBER_OF_QKEYS = "numberOfQkeys";
 
     private int mQKeysNumber;
 
@@ -80,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     private void storeNumberOfQKeys() {
 
         SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
-        editor.putInt(NUMBER_OF_QKEYS, mQKeysNumber);
+        editor.putInt(Values.NUMBER_OF_QKEYS, mQKeysNumber);
         editor.apply();
     }
 
@@ -92,6 +91,6 @@ public class MainActivity extends AppCompatActivity {
     private int getNumberOfQKeysStored() {
 
         SharedPreferences prefs = getPreferences(MODE_PRIVATE);
-        return prefs.getInt(NUMBER_OF_QKEYS, 0);
+        return prefs.getInt(Values.NUMBER_OF_QKEYS, 0);
     }
 }

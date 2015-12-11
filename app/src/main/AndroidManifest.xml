@@ -19,7 +19,7 @@
 
         <receiver
             android:name="dev.laz.qkeycounter.widget.WidgetInfoProvider"
-            android:label="AAAQKey widget">
+            android:label="QKey widget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
                 <action android:name="android.appwidget.action.APPWIDGET_DELETED"/>
