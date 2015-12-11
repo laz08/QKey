@@ -28,15 +28,17 @@ public class WidgetInfoProvider extends AppWidgetProvider {
             Log.v(TAG, "widgetId: " + widgetId);
             Toast.makeText(context, "Widget id: " + widgetId, Toast.LENGTH_SHORT).show();
 
+            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_small);
+            views.setTextViewText(R.id.numb_text, "Hika");
+
             Intent intent = new Intent(context, WidgetInfoProvider.class);
             intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
                     0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_small);
             views.setOnClickPendingIntent(R.id.widget_layout, pendingIntent);
-            views.setTextViewText(R.id.numb_text, "Hika");
 
             appWidgetManager.updateAppWidget(widgetId, views);
         }
