@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:configure="dev.laz.qkeycounter.activity.MainActivity"
+                    android:initialLayout="@layout/widget_small"
+                    android:minHeight="@dimen/min_value_width_height"
+                    android:minWidth="@dimen/min_value_width_height"
+                    android:resizeMode="none"
+                    android:updatePeriodMillis="0">
+</appwidget-provider>

@@ -15,5 +15,8 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="WidgetTextStyle">
+        <item name="android:textColor">@color/white</item>
+    </style>
 
 </resources>

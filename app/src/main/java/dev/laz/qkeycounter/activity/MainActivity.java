@@ -1,4 +1,4 @@
-package dev.laz.qkeycounter;
+package dev.laz.qkeycounter.activity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import dev.laz.qkeycounter.R;
 import info.hoang8f.widget.FButton;
 
 /**

@@ -11,4 +11,8 @@
     <dimen name="button_corner_radius">10dp</dimen>
     <dimen name="button_shadow_height">2dp</dimen>
 
+    <!-- Widget -->
+    <dimen name="widget_padding">2dp</dimen>
+    <dimen name="min_value_width_height">40dp</dimen>
+
 </resources>
