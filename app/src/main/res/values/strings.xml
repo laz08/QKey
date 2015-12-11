@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">QKeyCounter</string>
+    <string name="num_of_qkeys">QKeys collected:</string>
 </resources>
