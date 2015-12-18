@@ -6,13 +6,11 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.RemoteViews;
 
+import dev.laz.qkeycounter.QKeyPreferencesManager;
 import dev.laz.qkeycounter.R;
-import dev.laz.qkeycounter.Values;
 
 /**
  * Widget info provider.
@@ -36,9 +34,7 @@ public class WidgetInfoProvider extends AppWidgetProvider {
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
                     R.layout.widget_small);
 
-            
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-            int numQKeys = prefs.getInt(Values.NUMBER_OF_QKEYS, 0);
+            int numQKeys = QKeyPreferencesManager.getNumberOfQKeysStored(context);
             Log.v(TAG, "NumQKeys: " + numQKeys);
 
             remoteViews.setTextViewText(R.id.number_label, String.valueOf(numQKeys));
