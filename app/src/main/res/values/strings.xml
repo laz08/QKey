@@ -6,5 +6,7 @@
     <!-- Main activity -->
     <string name="num_of_qkeys">QKeys collected:</string>
     <string name="add_qKey">Add QKey!</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 
 </resources>

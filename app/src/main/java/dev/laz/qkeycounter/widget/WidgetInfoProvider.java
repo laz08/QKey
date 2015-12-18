@@ -3,13 +3,13 @@ package dev.laz.qkeycounter.widget;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.RemoteViews;
-import android.widget.Toast;
 
 import dev.laz.qkeycounter.R;
 import dev.laz.qkeycounter.Values;
@@ -24,29 +24,27 @@ public class WidgetInfoProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
-        int numberOfWidgets = appWidgetIds.length;
-        for (int i = 0; i < numberOfWidgets; i++) {
 
-            int widgetId = appWidgetIds[i];
-            Log.v(TAG, "widgetId: " + widgetId);
-            Toast.makeText(context, "Widget id: " + widgetId, Toast.LENGTH_SHORT).show();
+        super.onUpdate(context, appWidgetManager, appWidgetIds);
 
-            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_small);
+        // Loop for every App Widget instance that belongs to this provider.
+        // Noting, that is, a user might have multiple instances of the same
+        // widget on
+        // their home screen.
+        for (int appWidgetID : appWidgetIds) {
+
+            RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
+                    R.layout.widget_small);
+
+            
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             int numQKeys = prefs.getInt(Values.NUMBER_OF_QKEYS, 0);
-            Log.v(TAG, "Stored number of QKeys:" + numQKeys);
-            views.setTextViewText(R.id.number_label, String.valueOf(numQKeys));
+            Log.v(TAG, "NumQKeys: " + numQKeys);
 
-            Intent intent = new Intent(context, WidgetInfoProvider.class);
-            intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
+            remoteViews.setTextViewText(R.id.number_label, String.valueOf(numQKeys));
+            remoteViews.setOnClickPendingIntent(R.id.widget_layout, getPendingSelfIntent(context, WIDGET_ON_CLICK));
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
-                    0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-            views.setOnClickPendingIntent(R.id.widget_layout, pendingIntent);
-
-            appWidgetManager.updateAppWidget(widgetId, views);
+            appWidgetManager.updateAppWidget(appWidgetID, remoteViews);
         }
     }
 
@@ -54,5 +52,44 @@ public class WidgetInfoProvider extends AppWidgetProvider {
     public void onDeleted(Context context, int[] appWidgetIds) {
 
         super.onDeleted(context, appWidgetIds);
+
     }
+
+    private PendingIntent getPendingSelfIntent(Context ctx, String action) {
+
+        Intent intent = new Intent(ctx, getClass());
+        intent.setAction(action);
+        return PendingIntent.getBroadcast(ctx, 0, intent, 0);
+    }
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+
+        super.onReceive(context, intent);
+        if (WIDGET_ON_CLICK.equals(intent.getAction())) {
+
+            Log.v(TAG, "On click!");
+            updateWidget(context);
+        }
+    }
+
+    private void updateWidget(Context ctx) {
+
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(ctx);
+
+        // Uses getClass().getName() rather than MyWidget.class.getName() for
+        // portability into any App Widget Provider Class
+        ComponentName thisAppWidgetComponentName =
+                new ComponentName(ctx.getPackageName(), getClass().getName());
+        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(
+                thisAppWidgetComponentName);
+        onUpdate(ctx, appWidgetManager, appWidgetIds);
+    }
+
+
+    /*
+        public void onReceive(Context ctx, Intent i) {
+        }
+    */
+    public static final String WIDGET_ON_CLICK = "widgetOnClick";
 }

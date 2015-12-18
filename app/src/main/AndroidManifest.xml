@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    package="dev.laz.qkeycounter"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest package="dev.laz.qkeycounter"
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
         android:allowBackup="true"
@@ -18,17 +17,17 @@
         </activity>
 
         <receiver
-            android:name="dev.laz.qkeycounter.widget.WidgetInfoProvider"
+            android:name=".widget.WidgetInfoProvider"
             android:label="QKey widget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
                 <action android:name="android.appwidget.action.APPWIDGET_DELETED"/>
             </intent-filter>
+
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_info"/>
         </receiver>
-
     </application>
 
 </manifest>
