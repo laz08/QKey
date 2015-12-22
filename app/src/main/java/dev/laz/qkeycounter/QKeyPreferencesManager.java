@@ -28,4 +28,15 @@ public class QKeyPreferencesManager {
         SharedPreferences prefs = ctx.getSharedPreferences(Values.PREFS_NAME, 0);
         return prefs.getInt(Values.NUMBER_OF_QKEYS, 0);
     }
+
+    /**
+     * Increments one unit the number of QKeys stored.
+     *
+     * @param ctx Context.
+     */
+    public static void incrementNumberOfQKeys(Context ctx) {
+
+        int num = getNumberOfQKeysStored(ctx);
+        storeNumberOfQKeys(ctx, num + 1);
+    }
 }

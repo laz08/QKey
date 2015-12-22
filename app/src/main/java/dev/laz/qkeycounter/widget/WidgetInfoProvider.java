@@ -22,9 +22,7 @@ public class WidgetInfoProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
-        Log.v(TAG, "onUpdate");
-        Log.v(TAG, "appWidgetsId size: " + appWidgetIds.length);
-
+        super.onUpdate(context, appWidgetManager, appWidgetIds);
         for (int appWidgetID : appWidgetIds) {
 
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
@@ -38,16 +36,21 @@ public class WidgetInfoProvider extends AppWidgetProvider {
 
             appWidgetManager.updateAppWidget(appWidgetID, remoteViews);
         }
-        super.onUpdate(context, appWidgetManager, appWidgetIds);
     }
 
     @Override
     public void onDeleted(Context context, int[] appWidgetIds) {
 
         super.onDeleted(context, appWidgetIds);
-
     }
 
+    /**
+     * Returns self pending intent.
+     *
+     * @param ctx    Context.
+     * @param action Action.
+     * @return Self pending intent.
+     */
     private PendingIntent getPendingSelfIntent(Context ctx, String action) {
 
         Intent intent = new Intent(ctx, getClass());
@@ -63,7 +66,7 @@ public class WidgetInfoProvider extends AppWidgetProvider {
         if (WIDGET_ON_CLICK.equals(intent.getAction())) {
 
             Log.v(TAG, "On click!");
-            updateWidget(context);
+            IncrementAndUpdateWidget(context);
         }
     }
 
@@ -72,15 +75,13 @@ public class WidgetInfoProvider extends AppWidgetProvider {
      *
      * @param ctx Context.
      */
-    private void updateWidget(Context ctx) {
+    private void IncrementAndUpdateWidget(Context ctx) {
+
+        QKeyPreferencesManager.incrementNumberOfQKeys(ctx);
 
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(ctx);
-
-        ComponentName componentName =
-                new ComponentName(ctx.getPackageName(), WidgetInfoProvider.class.getName());
-        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(
-                componentName);
-        Log.v(TAG, "UpdateWidget, Component name: " + componentName.getClassName());
+        ComponentName componentName = new ComponentName(ctx.getPackageName(), WidgetInfoProvider.class.getName());
+        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(componentName);
         onUpdate(ctx, appWidgetManager, appWidgetIds);
     }
 
