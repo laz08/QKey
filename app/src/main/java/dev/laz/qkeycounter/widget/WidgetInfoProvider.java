@@ -66,16 +66,16 @@ public class WidgetInfoProvider extends AppWidgetProvider {
         if (WIDGET_ON_CLICK.equals(intent.getAction())) {
 
             Log.v(TAG, "On click!");
-            IncrementAndUpdateWidget(context);
+            incrementAndUpdateWidget(context);
         }
     }
 
     /**
-     * Updates widget.
+     * Increments one unit the displayed numberand updates widget.
      *
      * @param ctx Context.
      */
-    private void IncrementAndUpdateWidget(Context ctx) {
+    private void incrementAndUpdateWidget(Context ctx) {
 
         QKeyPreferencesManager.incrementNumberOfQKeys(ctx);
 

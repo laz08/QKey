@@ -60,6 +60,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * Adds QKey.
+     */
+    private void addQKey() {
+
+        mQKeysNumber++;
+        QKeyPreferencesManager.storeNumberOfQKeys(getApplicationContext(), mQKeysNumber);
+        refreshNumberOfQKeysShown();
+    }
+
+    /**
      * Refreshes number of QKeys shown.
      */
     private void refreshNumberOfQKeysShown() {
@@ -80,15 +90,4 @@ public class MainActivity extends AppCompatActivity {
         i.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
         sendBroadcast(i);
     }
-
-    /**
-     * Adds QKey.
-     */
-    private void addQKey() {
-
-        mQKeysNumber++;
-        QKeyPreferencesManager.storeNumberOfQKeys(getApplicationContext(), mQKeysNumber);
-        refreshNumberOfQKeysShown();
-    }
-
 }
