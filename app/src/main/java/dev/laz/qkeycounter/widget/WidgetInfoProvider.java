@@ -22,26 +22,23 @@ public class WidgetInfoProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
+        Log.v(TAG, "onUpdate");
+        Log.v(TAG, "appWidgetsId size: " + appWidgetIds.length);
 
-        super.onUpdate(context, appWidgetManager, appWidgetIds);
-
-        // Loop for every App Widget instance that belongs to this provider.
-        // Noting, that is, a user might have multiple instances of the same
-        // widget on
-        // their home screen.
         for (int appWidgetID : appWidgetIds) {
 
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
                     R.layout.widget_small);
 
             int numQKeys = QKeyPreferencesManager.getNumberOfQKeysStored(context);
-            Log.v(TAG, "NumQKeys: " + numQKeys);
+            Log.v(TAG, "NumQKeys: " + numQKeys + ", appWidgetId: " + appWidgetID);
 
             remoteViews.setTextViewText(R.id.number_label, String.valueOf(numQKeys));
             remoteViews.setOnClickPendingIntent(R.id.widget_layout, getPendingSelfIntent(context, WIDGET_ON_CLICK));
 
             appWidgetManager.updateAppWidget(appWidgetID, remoteViews);
         }
+        super.onUpdate(context, appWidgetManager, appWidgetIds);
     }
 
     @Override
@@ -62,6 +59,7 @@ public class WidgetInfoProvider extends AppWidgetProvider {
     public void onReceive(Context context, Intent intent) {
 
         super.onReceive(context, intent);
+        Log.v(TAG, "onReceived");
         if (WIDGET_ON_CLICK.equals(intent.getAction())) {
 
             Log.v(TAG, "On click!");
@@ -69,23 +67,22 @@ public class WidgetInfoProvider extends AppWidgetProvider {
         }
     }
 
+    /**
+     * Updates widget.
+     *
+     * @param ctx Context.
+     */
     private void updateWidget(Context ctx) {
 
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(ctx);
 
-        // Uses getClass().getName() rather than MyWidget.class.getName() for
-        // portability into any App Widget Provider Class
-        ComponentName thisAppWidgetComponentName =
-                new ComponentName(ctx.getPackageName(), getClass().getName());
+        ComponentName componentName =
+                new ComponentName(ctx.getPackageName(), WidgetInfoProvider.class.getName());
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(
-                thisAppWidgetComponentName);
+                componentName);
+        Log.v(TAG, "UpdateWidget, Component name: " + componentName.getClassName());
         onUpdate(ctx, appWidgetManager, appWidgetIds);
     }
 
-
-    /*
-        public void onReceive(Context ctx, Intent i) {
-        }
-    */
     public static final String WIDGET_ON_CLICK = "widgetOnClick";
 }

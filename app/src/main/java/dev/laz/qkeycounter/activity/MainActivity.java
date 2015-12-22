@@ -1,5 +1,9 @@
 package dev.laz.qkeycounter.activity;
 
+import android.app.Application;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -9,6 +13,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import dev.laz.qkeycounter.QKeyPreferencesManager;
 import dev.laz.qkeycounter.R;
+import dev.laz.qkeycounter.widget.WidgetInfoProvider;
 import info.hoang8f.widget.FButton;
 
 /**
@@ -60,6 +65,20 @@ public class MainActivity extends AppCompatActivity {
     private void refreshNumberOfQKeysShown() {
 
         mQKey.setText(String.valueOf(mQKeysNumber));
+        updateAllWidgets();
+    }
+
+    /**
+     * Updates all widgets.
+     */
+    private void updateAllWidgets() {
+
+        Intent i = new Intent(this, WidgetInfoProvider.class);
+        i.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        Application app = getApplication();
+        int[] appWidgetIds = AppWidgetManager.getInstance(app).getAppWidgetIds(new ComponentName(app, WidgetInfoProvider.class));
+        i.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
+        sendBroadcast(i);
     }
 
     /**

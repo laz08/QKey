@@ -4,6 +4,5 @@
                     android:minHeight="@dimen/min_value_width_height"
                     android:minWidth="@dimen/min_value_width_height"
                     android:previewImage="@mipmap/ic_launcher"
-                    android:resizeMode="none"
-                    android:updatePeriodMillis="10000000">
+                    android:resizeMode="none">
 </appwidget-provider>
