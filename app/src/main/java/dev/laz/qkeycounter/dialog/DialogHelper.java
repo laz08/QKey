@@ -17,11 +17,6 @@ public class DialogHelper {
      */
     public static void showResetDialog(FragmentManager fmtManager) {
 
-        if (mDialog != null) {
-
-            mDialog.dismiss();
-        }
-
         mDialog = new ResetConfirmationDialog();
         mDialog.show(fmtManager, TAG);
         mDialog.setCancelable(false);

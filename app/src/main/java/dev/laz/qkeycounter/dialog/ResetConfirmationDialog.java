@@ -52,7 +52,6 @@ public class ResetConfirmationDialog extends DialogFragment {
                     }
                 });
 
-        //builder.setView(R.layout.activity_edit);
         return builder.create();
     }
 }
