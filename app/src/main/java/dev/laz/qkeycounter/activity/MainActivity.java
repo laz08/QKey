@@ -3,6 +3,7 @@ package dev.laz.qkeycounter.activity;
 import android.app.Application;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,13 +14,15 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import dev.laz.qkeycounter.QKeyPreferencesManager;
 import dev.laz.qkeycounter.R;
+import dev.laz.qkeycounter.dialog.DialogHelper;
+import dev.laz.qkeycounter.dialog.ResetListener;
 import dev.laz.qkeycounter.widget.WidgetInfoProvider;
 import info.hoang8f.widget.FButton;
 
 /**
  * Main Activity.
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ResetListener {
 
     private int mQKeysNumber;
 
@@ -65,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                resetQKeys();
+                DialogHelper.showResetDialog(getSupportFragmentManager());
             }
         });
     }
@@ -77,16 +80,6 @@ public class MainActivity extends AppCompatActivity {
 
         mQKeysNumber++;
         QKeyPreferencesManager.storeNumberOfQKeys(getApplicationContext(), mQKeysNumber);
-        refreshNumberOfQKeysShown();
-    }
-    
-    /**
-     * Resets the number of QKeys.
-     */
-    private void resetQKeys() {
-
-        mQKeysNumber = 0;
-        QKeyPreferencesManager.resetNumberOfQKeys(getApplicationContext());
         refreshNumberOfQKeysShown();
     }
 
@@ -110,5 +103,13 @@ public class MainActivity extends AppCompatActivity {
         int[] appWidgetIds = AppWidgetManager.getInstance(app).getAppWidgetIds(new ComponentName(app, WidgetInfoProvider.class));
         i.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
         sendBroadcast(i);
+    }
+
+    @Override
+    public void resetNumberOfQKeys(Context ctx) {
+
+        mQKeysNumber = 0;
+        QKeyPreferencesManager.resetNumberOfQKeys(getApplicationContext());
+        refreshNumberOfQKeysShown();
     }
 }
