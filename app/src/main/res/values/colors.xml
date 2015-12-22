@@ -8,4 +8,7 @@
 
     <color name="button_color">#ff7043</color>
     <color name="button_color_shadow">#ff5722</color>
+
+    <color name="button_reset_color">#f44336</color>
+    <color name="button_reset_color_shadow">#ff1744</color>
 </resources>

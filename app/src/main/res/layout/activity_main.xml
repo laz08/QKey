@@ -8,6 +8,21 @@
     android:padding="@dimen/generic_padding"
     tools:context=".activity.MainActivity">
 
+    <info.hoang8f.widget.FButton
+        android:id="@+id/reset_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/reset"
+        android:textColor="@color/white"
+        android:textSize="@dimen/generic_text_size"
+        fbutton:buttonColor="@color/button_reset_color"
+        fbutton:cornerRadius="@dimen/button_corner_radius"
+        fbutton:shadowColor="@color/button_reset_color_shadow"
+        fbutton:shadowEnabled="true"
+        fbutton:shadowHeight="@dimen/button_shadow_height"/>
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

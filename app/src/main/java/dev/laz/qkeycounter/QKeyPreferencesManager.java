@@ -39,4 +39,14 @@ public class QKeyPreferencesManager {
         int num = getNumberOfQKeysStored(ctx);
         storeNumberOfQKeys(ctx, num + 1);
     }
+
+    /**
+     * Resets the number of QKeys shown.
+     *
+     * @param ctx Context.
+     */
+    public static void resetNumberOfQKeys(Context ctx) {
+
+        storeNumberOfQKeys(ctx, 0);
+    }
 }

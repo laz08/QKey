@@ -29,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.comments_button)
     FButton mButton;
 
+    @Bind(R.id.reset_button)
+    FButton mResetButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        mResetButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                resetQKeys();
+            }
+        });
     }
 
     /**
@@ -66,6 +77,16 @@ public class MainActivity extends AppCompatActivity {
 
         mQKeysNumber++;
         QKeyPreferencesManager.storeNumberOfQKeys(getApplicationContext(), mQKeysNumber);
+        refreshNumberOfQKeysShown();
+    }
+    
+    /**
+     * Resets the number of QKeys.
+     */
+    private void resetQKeys() {
+
+        mQKeysNumber = 0;
+        QKeyPreferencesManager.resetNumberOfQKeys(getApplicationContext());
         refreshNumberOfQKeysShown();
     }
 
