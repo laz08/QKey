@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements ResetListener {
     @Bind(R.id.qKey_numb)
     TextView mQKey;
 
-    @Bind(R.id.comments_button)
+    @Bind(R.id.add_qkey_button)
     FButton mButton;
 
     @Bind(R.id.reset_button)
