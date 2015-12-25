@@ -3,6 +3,6 @@
                     android:initialLayout="@layout/widget_small"
                     android:minHeight="@dimen/min_value_width_height"
                     android:minWidth="@dimen/min_value_width_height"
-                    android:previewImage="@mipmap/ic_launcher"
+                    android:previewImage="@drawable/giant_cookie"
                     android:resizeMode="none">
 </appwidget-provider>
