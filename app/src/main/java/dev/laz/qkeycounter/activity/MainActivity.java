@@ -5,11 +5,13 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements ResetListener {
 
     private int mQKeysNumber;
     private ImageType mImageShown;
+    private int mNumberOfClicksLeft;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements ResetListener {
 
         super.onSaveInstanceState(outState);
         outState.putInt(BUNDLE_IMAGE_SHOWN, mImageShown.getCode());
+        outState.putInt(BUNDLE_CLICKS_LEFT, mNumberOfClicksLeft);
     }
 
     /**
@@ -98,9 +102,11 @@ public class MainActivity extends AppCompatActivity implements ResetListener {
 
             int code = savedInstanceState.getInt(BUNDLE_IMAGE_SHOWN);
             mImageShown = ImageType.from(code);
+            mNumberOfClicksLeft = savedInstanceState.getInt(BUNDLE_CLICKS_LEFT);
         } else {
 
             mImageShown = ImageType.COOKIE;
+            mNumberOfClicksLeft = DEFAULT_CLICKS;
         }
         mChangeableImgView.setImageResource(mImageShown.getImageResource());
 
@@ -109,11 +115,24 @@ public class MainActivity extends AppCompatActivity implements ResetListener {
             @Override
             public void onClick(View v) {
 
-                int newCode = mImageShown.getCode() + 1;
-                mImageShown = ImageType.from(newCode);
-                mChangeableImgView.setImageResource(mImageShown.getImageResource());
+                toggleImageShown();
             }
         });
+    }
+
+    /**
+     * Toggles image shown.
+     */
+    private void toggleImageShown() {
+
+        mNumberOfClicksLeft--;
+        if (mNumberOfClicksLeft == 0) {
+
+            int newCode = mImageShown.getCode() + 1;
+            mImageShown = ImageType.from(newCode);
+            mChangeableImgView.setImageResource(mImageShown.getImageResource());
+            mNumberOfClicksLeft = DEFAULT_CLICKS;
+        }
     }
 
     /**
@@ -156,5 +175,8 @@ public class MainActivity extends AppCompatActivity implements ResetListener {
         refreshNumberOfQKeysShown();
     }
 
+    public static final int DEFAULT_CLICKS = 5;
+
     private static final String BUNDLE_IMAGE_SHOWN = "imageShown";
+    private static final String BUNDLE_CLICKS_LEFT = "clicksLeft";
 }
