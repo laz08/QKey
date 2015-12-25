@@ -30,6 +30,7 @@
 
     <ImageView
         android:layout_width="120dp"
+        android:id="@+id/changeable_img"
         android:layout_height="wrap_content"
         android:layout_above="@+id/center_view"
         android:layout_centerHorizontal="true"

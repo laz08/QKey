@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.Bind;
@@ -25,6 +26,9 @@ import info.hoang8f.widget.FButton;
 public class MainActivity extends AppCompatActivity implements ResetListener {
 
     private int mQKeysNumber;
+
+    @Bind(R.id.changeable_img)
+    ImageView mChangeableImg;
 
     @Bind(R.id.qKey_numb)
     TextView mQKey;
