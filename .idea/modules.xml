@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/QKeyCounter.iml" filepath="$PROJECT_DIR$/QKeyCounter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/QKey.iml" filepath="$PROJECT_DIR$/QKey.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
