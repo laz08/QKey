@@ -17,6 +17,7 @@ import dev.laz.qkeycounter.QKeyPreferencesManager;
 import dev.laz.qkeycounter.R;
 import dev.laz.qkeycounter.dialog.DialogHelper;
 import dev.laz.qkeycounter.dialog.ResetListener;
+import dev.laz.qkeycounter.entities.ImageType;
 import dev.laz.qkeycounter.widget.WidgetInfoProvider;
 import info.hoang8f.widget.FButton;
 
@@ -25,10 +26,8 @@ import info.hoang8f.widget.FButton;
  */
 public class MainActivity extends AppCompatActivity implements ResetListener {
 
-    private int mQKeysNumber;
-
     @Bind(R.id.changeable_img)
-    ImageView mChangeableImg;
+    ImageView mChangeableImgView;
 
     @Bind(R.id.qKey_numb)
     TextView mQKey;
@@ -39,18 +38,27 @@ public class MainActivity extends AppCompatActivity implements ResetListener {
     @Bind(R.id.reset_button)
     FButton mResetButton;
 
+    private int mQKeysNumber;
+    private ImageType mImageShown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        initialize();
+        initialize(savedInstanceState);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+
+        super.onSaveInstanceState(outState);
+        outState.putInt(BUNDLE_IMAGE_SHOWN, mImageShown.getCode());
     }
 
     /**
      * Initializes main activity.
      */
-    private void initialize() {
+    private void initialize(Bundle savedInstanceState) {
 
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -73,6 +81,37 @@ public class MainActivity extends AppCompatActivity implements ResetListener {
             public void onClick(View view) {
 
                 DialogHelper.showResetDialog(getSupportFragmentManager());
+            }
+        });
+
+        configureImageShown(savedInstanceState);
+    }
+
+    /**
+     * Configures image shown.
+     *
+     * @param savedInstanceState Saved instance state.
+     */
+    private void configureImageShown(Bundle savedInstanceState) {
+
+        if (savedInstanceState != null) {
+
+            int code = savedInstanceState.getInt(BUNDLE_IMAGE_SHOWN);
+            mImageShown = ImageType.from(code);
+        } else {
+
+            mImageShown = ImageType.COOKIE;
+        }
+        mChangeableImgView.setImageResource(mImageShown.getImageResource());
+
+        mChangeableImgView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                int newCode = mImageShown.getCode() + 1;
+                mImageShown = ImageType.from(newCode);
+                mChangeableImgView.setImageResource(mImageShown.getImageResource());
             }
         });
     }
@@ -116,4 +155,6 @@ public class MainActivity extends AppCompatActivity implements ResetListener {
         QKeyPreferencesManager.resetNumberOfQKeys(getApplicationContext());
         refreshNumberOfQKeysShown();
     }
+
+    private static final String BUNDLE_IMAGE_SHOWN = "imageShown";
 }
