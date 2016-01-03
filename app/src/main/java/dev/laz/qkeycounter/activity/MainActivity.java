@@ -5,13 +5,11 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -40,7 +38,6 @@ public class MainActivity extends AppCompatActivity implements ResetListener {
     @Bind(R.id.reset_button)
     FButton mResetButton;
 
-    private int mQKeysNumber;
     private ImageType mImageShown;
     private int mNumberOfClicksLeft;
 
@@ -59,6 +56,13 @@ public class MainActivity extends AppCompatActivity implements ResetListener {
         outState.putInt(BUNDLE_CLICKS_LEFT, mNumberOfClicksLeft);
     }
 
+    @Override
+    protected void onResume() {
+
+        super.onResume();
+        mQKey.setText(String.valueOf(QKeyPreferencesManager.getNumberOfQKeysStored(getApplicationContext())));
+    }
+
     /**
      * Initializes main activity.
      */
@@ -67,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements ResetListener {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        mQKeysNumber = QKeyPreferencesManager.getNumberOfQKeysStored(getApplicationContext());
         refreshNumberOfQKeysShown();
 
         mButton.setOnClickListener(new View.OnClickListener() {
@@ -140,8 +143,7 @@ public class MainActivity extends AppCompatActivity implements ResetListener {
      */
     private void addQKey() {
 
-        mQKeysNumber++;
-        QKeyPreferencesManager.storeNumberOfQKeys(getApplicationContext(), mQKeysNumber);
+        QKeyPreferencesManager.incrementNumberOfQKeys(getApplicationContext());
         refreshNumberOfQKeysShown();
     }
 
@@ -150,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements ResetListener {
      */
     private void refreshNumberOfQKeysShown() {
 
-        mQKey.setText(String.valueOf(mQKeysNumber));
+        mQKey.setText(String.valueOf(QKeyPreferencesManager.getNumberOfQKeysStored(getApplicationContext())));
         updateAllWidgets();
     }
 
@@ -170,7 +172,6 @@ public class MainActivity extends AppCompatActivity implements ResetListener {
     @Override
     public void resetNumberOfQKeys(Context ctx) {
 
-        mQKeysNumber = 0;
         QKeyPreferencesManager.resetNumberOfQKeys(getApplicationContext());
         refreshNumberOfQKeysShown();
     }
